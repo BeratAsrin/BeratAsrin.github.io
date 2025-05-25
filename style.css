@@ -1,0 +1,486 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
+
+body {
+    font-family: 'Quicksand', Arial, sans-serif;
+    background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background 0.3s, color 0.3s;
+}
+body.dark-mode {
+    background: linear-gradient(135deg, #181a1b 0%, #232526 100%);
+    color: #e6e6e6;
+}
+body.dark-mode,
+body.dark-mode p,
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6,
+body.dark-mode li,
+body.dark-mode span,
+body.dark-mode .profile-summary,
+body.dark-mode .aboutme-section,
+body.dark-mode .aboutme-card {
+    color: #f6f6f6 !important;
+}
+body.dark-mode .aboutme-section h1,
+body.dark-mode .aboutme-section h2 {
+    color: #ffd580 !important;
+}
+body.dark-mode .aboutme-section p,
+body.dark-mode .aboutme-card p {
+    color: #e6e6e6 !important;
+}
+body.dark-mode nav ul li a {
+    color: #ffd580;
+}
+body.dark-mode nav ul li a:hover {
+    color: #232526;
+    background: #ffd580;
+}
+body.dark-mode .snake-score,
+body.dark-mode .snake-container h1 {
+    color: #ffd580 !important;
+}
+body.dark-mode .snake-container,
+body.dark-mode .snake-score {
+    color: #f6f6f6 !important;
+}
+body.dark-mode #snake-canvas {
+    background: #181a1b !important;
+    border: 1.5px solid #ffd580;
+}
+body.dark-mode #restart-btn {
+    background: #232526 !important;
+    color: #ffd580 !important;
+    border: 1.5px solid #ffd580;
+}
+
+nav {
+    background: linear-gradient(90deg, #232526 0%, #414345 100%);
+    color: #fff;
+    padding: 1rem 0;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+}
+body.dark-mode nav {
+    background: linear-gradient(90deg, #181a1b 0%, #232526 100%);
+    color: #e6e6e6;
+}
+nav::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(120deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 100%);
+}
+nav > div {
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+nav span {
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+}
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.2s, background 0.2s, box-shadow 0.2s;
+    font-weight: bold;
+    padding: 0.5rem 1.2rem;
+    border-radius: 8px;
+    display: inline-block;
+}
+nav ul li a:hover {
+    color: #232526;
+    background: #ffb347;
+    box-shadow: 0 2px 8px rgba(255,179,71,0.15);
+}
+.navbar-title:hover {
+    color: #ffd600;
+    transition: color 0.2s;
+}
+body.dark-mode .navbar-title:hover {
+    color: #ffd600 !important;
+    transition: color 0.2s;
+}
+
+main.profile-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1000px;
+    margin: auto;
+    gap: 48px;
+    padding: 32px 16px;
+    transition: background 0.3s, color 0.3s;
+}
+body.dark-mode main.profile-container,
+body.dark-mode .aboutme-scroll-main,
+body.dark-mode .aboutme-fade-main {
+    background: linear-gradient(135deg, #232526 0%, #181a1b 100%);
+    color: #e6e6e6;
+}
+
+.profile-image {
+    flex: 0 0 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-image img {
+    width: 500px;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 50%; /* Tam yuvarlak */
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    border: 6px solid #ffb347;
+    background: #fff;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+.profile-summary {
+    flex: 1;
+    min-width: 220px;
+}
+
+.footer-dock {
+    background: linear-gradient(90deg, #232526 0%, #414345 100%);
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+    border-radius: 24px 24px 16px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+    padding: 0.7rem 1.5rem 0.7rem 1.5rem;
+    margin: 32px auto 0 auto;
+    position: relative;
+    z-index: 2;
+    width: fit-content;
+    min-width: 220px;
+    max-width: 90vw;
+    left: 0;
+    right: 0;
+    transition: box-shadow 0.2s;
+}
+body.dark-mode .footer-dock {
+    background: linear-gradient(90deg, #181a1b 0%, #232526 100%);
+    color: #e6e6e6;
+}
+.footer-dock::before {
+    content: '';
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    bottom: -12px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(60,60,60,0.10);
+    filter: blur(4px);
+    z-index: 1;
+}
+.footer-dock a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    position: relative;
+    z-index: 2;
+}
+body.dark-mode .footer-dock a {
+    background: rgba(255,255,255,0.04);
+}
+.footer-dock a:hover {
+    background: #ffb347;
+    box-shadow: 0 4px 16px rgba(255,179,71,0.18);
+    transform: translateY(-8px) scale(1.15);
+}
+body.dark-mode .footer-dock a:hover {
+    background: #ffd580;
+}
+.footer-dock img {
+    width: 28px;
+    height: 28px;
+    transition: filter 0.2s, -webkit-filter 0.2s;
+}
+
+.footer-dock a[aria-label="GitHub"] img,
+.footer-dock a[aria-label="LinkedIn"] img,
+.footer-dock a[aria-label="Instagram"] img,
+.footer-dock a[aria-label="Mail"] img {
+    filter: brightness(0) invert(1);
+}
+
+.footer-dock a[aria-label="LinkedIn"] img,
+.footer-dock a[aria-label="Instagram"] img,
+.footer-dock a[aria-label="Mail"] img  {
+    filter: grayscale(1) brightness(1.2);
+}
+
+.footer-dock a:hover img {
+    filter: none;
+}
+
+/* Hakkımda sayfası için dikey section kartları */
+.aboutme-scroll-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 32px 0 24px 0; /* Alt boşluk azaltıldı */
+    background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+    transition: background 0.3s, color 0.3s;
+}
+body.dark-mode .aboutme-scroll-main,
+body.dark-mode .aboutme-fade-main {
+    background: linear-gradient(135deg, #232526 0%, #181a1b 100%);
+    color: #e6e6e6;
+}
+.aboutme-section {
+    width: 100%;
+    max-width: 600px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 2px 16px rgba(255,179,71,0.08), 0 1.5px 8px rgba(60,60,60,0.04);
+    margin-bottom: 32px;
+    padding: 32px 28px 28px 28px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 24px;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+}
+body.dark-mode .aboutme-section, body.dark-mode .aboutme-card {
+    background: #232526;
+    color: #e6e6e6;
+    box-shadow: 0 2px 24px rgba(30,30,30,0.18);
+}
+.aboutme-section h1, .aboutme-section h2 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-weight: bold;
+    color: #232526;
+}
+.aboutme-section p {
+    margin: 0;
+    color: #444;
+    font-size: 1.08rem;
+}
+.aboutme-section .info-icon {
+    font-size: 2.2rem;
+    margin-right: 8px;
+    margin-top: 2px;
+    flex-shrink: 0;
+    color: #ffb347;
+    filter: drop-shadow(0 2px 6px #ffd58060);
+}
+body.dark-mode .aboutme-section .info-icon,
+body.dark-mode .aboutme-card .info-icon {
+    color: #ffd580;
+}
+.aboutme-card {
+    flex-direction: column;
+    align-items: flex-start;
+    background: linear-gradient(120deg, #fffbe7 60%, #fff 100%);
+    box-shadow: 0 2px 24px rgba(255,179,71,0.10);
+    text-align: left;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+.info-section {
+    min-height: 110px;
+}
+.info-detail {
+    color: #ffb347;
+    font-weight: 600;
+    font-size: 1rem;
+}
+body.dark-mode .info-detail {
+    color: #ffd580;
+}
+
+@media (max-width: 1000px) {
+    main.profile-container {
+        flex-direction: column;
+        gap: 32px;
+        padding: 24px 8px;
+        max-width: 98vw;
+    }
+    .profile-image {
+        width: 100%;
+        max-width: 320px;
+        height: auto;
+        min-width: unset;
+        margin: 0 auto;
+    }
+    .profile-image img {
+        width: 100%;
+        height: auto;
+        max-width: 320px;
+        min-width: 120px;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+    }
+    .profile-summary {
+        min-width: 0;
+        width: 100%;
+        text-align: center;
+        padding: 0 8px;
+    }
+}
+
+@media (max-width: 700px) {
+    .profile-container {
+        flex-direction: column;
+        gap: 24px;
+        padding: 16px 4px;
+    }
+    .profile-image img {
+        width: 200px;
+        height: 200px;
+        max-width: 80vw;
+        min-width: 120px;
+        border-radius: 50%;
+    }
+    .footer-dock {
+        gap: 1.2rem;
+        padding: 0.5rem 0.7rem 0.5rem 0.7rem;
+        max-width: 98vw;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: 0;
+        border-radius: 16px 16px 0 0;
+        z-index: 100;
+        max-width: 100vw;
+    }
+    body {
+        padding-bottom: 80px; /* Footer yüksekliği kadar boşluk bırak */
+    }
+    .footer-dock a {
+        width: 36px;
+        height: 36px;
+    }
+    .footer-dock img {
+        width: 20px;
+        height: 20px;
+    }
+    .aboutme-scroll-main {
+        padding: 12px 0 16px 0; /* Mobilde de alt boşluk azaltıldı */
+    }
+    .aboutme-section {
+        max-width: 98vw;
+        padding: 20px 8px 18px 12px;
+        gap: 12px;
+    }
+    .aboutme-section .info-icon {
+        font-size: 1.5rem;
+        margin-right: 4px;
+    }
+    .aboutme-card {
+        padding-top: 24px;
+        padding-bottom: 24px;
+    }
+    .dark-mode-toggle {
+        width: 44px;
+        height: 44px;
+        font-size: 1.3rem;
+        bottom: 16px;
+        right: 16px;
+    }
+}
+
+@media (max-width: 500px) {
+    nav > div {
+        flex-direction: column;
+        gap: 12px;
+        padding: 0 4px;
+    }
+    nav span {
+        font-size: 1.1rem;
+    }
+    nav ul {
+        gap: 1rem;
+    }
+    .profile-image img {
+        max-width: 200px;
+        min-width: 200px;
+        border-radius: 50%;
+    }
+    main.profile-container {
+        gap: 16px;
+        padding: 12px 2px;
+    }
+}
+
+/* Karanlık mod butonu sağ alt köşe için */
+.dark-mode-toggle {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 9999;
+    background: #ffb347;
+    color: #232526;
+    border: none;
+    border-radius: 50%;
+    width: 54px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.13);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.dark-mode-toggle:hover {
+    background: #ffd580;
+    color: #232526;
+    box-shadow: 0 4px 20px rgba(255,179,71,0.18);
+}
+body.dark-mode .dark-mode-toggle {
+    background: #232526;
+    color: #ffd580;
+}
+
+::selection {
+    background: #ffd600;
+    color: #232526;
+}
+body.dark-mode ::selection {
+    background: #ffd600;
+    color: #232526;
+}
+

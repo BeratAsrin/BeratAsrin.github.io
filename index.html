@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Berat Asrın CAFEROĞLU</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="typewriter.js"></script>
+</head>
+<body>
+    <button class="dark-mode-toggle" id="darkModeToggle" title="Karanlık Mod"><span id="darkModeIcon">🌙</span></button>
+    <div id="navbar-container"></div>
+    <main class="profile-container">
+        <div class="profile-image">
+            <img src="images/asrin_profile.jpg" alt="Berat Asrın Caferoğlu" />
+        </div>
+        <div class="profile-summary">
+            <h1>Merhaba, ben Berat Asrın CAFEROĞLU</h1>
+            <p>
+                Yazılım geliştirme ve teknolojiye olan ilgimle,
+                modern web uygulamaları ve kullanıcı odaklı projeler geliştiriyorum.
+                Yaratıcı çözümler üretmeyi ve sürekli öğrenmeyi seviyorum.
+                Hakkımda daha fazla bilgi almak veya projelerimi incelemek için menüyü kullanabilirsiniz.
+            </p>
+        </div>
+    </main>
+    <div id="footerbar-container"></div>
+    <script>
+      fetch('navigation_bar.html')
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById('navbar-container').innerHTML = html;
+        });
+      fetch('footer_bar.html')
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById('footerbar-container').innerHTML = html;
+        });
+
+      // Karanlık mod toggle
+      const darkModeBtn = document.getElementById('darkModeToggle');
+      const darkModeIcon = document.getElementById('darkModeIcon');
+      function setDarkMode(on) {
+        if(on) {
+          document.body.classList.add('dark-mode');
+          darkModeIcon.textContent = '☀️';
+          localStorage.setItem('darkMode', '1');
+        } else {
+          document.body.classList.remove('dark-mode');
+          darkModeIcon.textContent = '🌙';
+          localStorage.setItem('darkMode', '0');
+        }
+      }
+      darkModeBtn.onclick = function() {
+        setDarkMode(!document.body.classList.contains('dark-mode'));
+      };
+      // Sayfa açılışında tercih uygula
+      if(localStorage.getItem('darkMode') === '1') setDarkMode(true);
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hakkımda</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="typewriter.js"></script>
+</head>
+<body>
+    <button class="dark-mode-toggle" id="darkModeToggle" title="Karanlık Mod"><span id="darkModeIcon">🌙</span></button>
+    <div id="navbar-container"></div>
+    <main class="aboutme-scroll-main">
+        <section class="aboutme-card aboutme-section">
+            <h1>Hakkımda</h1>
+            <p>
+                <b>Merhaba! Ben Berat Asrın CAFEROĞLU.</b>
+                <br><br>
+                Aktif olarak yazılım geliştirme ve teknoloji alanında çalışıyorum.
+                Günlük hayatı ve iş hayatını kolaylaştıran modern web uygulamaları ve kullanıcı odaklı projeler geliştiriyorum.
+                Şu an aktif olarak Garanti BBVA Teknoloji'de Yatırım Bankacılığı bölümünde Associate 2 Software Engineer olarak görev yapıyorum.
+                Bu uygulamalar sırasında yapay zekayı aktif olarak kullanmaya özen gösteriyorum.
+            </p>
+        </section>
+        <section class="aboutme-section info-section">
+            <span class="info-icon">🎓</span>
+            <div>
+                <h2>Eğitim</h2>
+                <p>Marmara Üniversitesi<br>
+                    <span class="info-detail">Elektrik-Elektronik Mühendisliği, Lisans, 2022</span>
+                    <br>
+                    <span class="info-detail">Bölüm Birinciliği - Fakülte İkinciliği</span>
+                </p>
+            </div>
+        </section>
+        <section class="aboutme-section info-section">
+            <span class="info-icon">💼</span>
+            <div>
+                <h2>Çalıştığım Şirketler</h2>
+                <p>Garanti BBVA Teknoloji<br>
+                    <span class="info-detail">Yatırım Bankacılığı, Associate 2 Software Engineer, 2022 Aralık - (...)</span>
+                </p>
+                <br>
+                <p>Huawei<br>
+                    <span class="info-detail">Petal Search, Software Engineer, 2022 Temmuz - 2022 Aralık</span>
+                </p>
+            </div>
+        </section>
+        <section class="aboutme-section info-section">
+            <span class="info-icon">📍</span>
+            <div>
+                <h2>Konum</h2>
+                <p>İstanbul, Türkiye</p>
+            </div>
+        </section>
+        <section class="aboutme-section info-section">
+            <span class="info-icon">🌱</span>
+            <div>
+                <h2>İlgi Alanları</h2>
+                <p>Web Geliştirme ve Programlama, Seyahat, Fotoğrafçılık</p>
+            </div>
+        </section>
+    </main>
+    <div id="footerbar-container"></div>
+    <script>
+      fetch('navigation_bar.html')
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById('navbar-container').innerHTML = html;
+        });
+      fetch('footer_bar.html')
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById('footerbar-container').innerHTML = html;
+        });
+      // Karanlık mod toggle
+      const darkModeBtn = document.getElementById('darkModeToggle');
+      const darkModeIcon = document.getElementById('darkModeIcon');
+      function setDarkMode(on) {
+        if(on) {
+          document.body.classList.add('dark-mode');
+          darkModeIcon.textContent = '☀️';
+          localStorage.setItem('darkMode', '1');
+        } else {
+          document.body.classList.remove('dark-mode');
+          darkModeIcon.textContent = '🌙';
+          localStorage.setItem('darkMode', '0');
+        }
+      }
+      darkModeBtn.onclick = function() {
+        setDarkMode(!document.body.classList.contains('dark-mode'));
+      };
+      if(localStorage.getItem('darkMode') === '1') setDarkMode(true);
+    </script>
+</body>
+</html>
+
+
