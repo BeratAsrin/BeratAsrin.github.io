@@ -31,7 +31,7 @@
     <div id="navbar-container"></div>
     <main class="snake-container" style="position:relative;">
         <h1>Yılan Oyunu</h1>
-        <canvas id="snake-canvas" width="400" height="400"></canvas>
+        <canvas id="snake-canvas"></canvas>
         <div class="snake-score">Skor: <span id="score">0</span></div>
         <button id="restart-btn" style="display:none;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);padding:14px 32px;font-size:1.1rem;border-radius:10px;border:none;background:#ffb347;color:#232526;font-weight:bold;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,0.12);transition:background 0.2s;z-index:20;">Yeniden Başlat</button>
     </main>
@@ -74,10 +74,19 @@
       }
     }, { passive: false });
 
-    // Basit Yılan Oyunu
+    // Responsive canvas boyutu
+    function getCanvasSize() {
+      if(window.innerWidth <= 600) {
+        return Math.min(window.innerWidth, window.innerHeight) * 0.9;
+      }
+      return 400;
+    }
     const canvas = document.getElementById('snake-canvas');
+    let canvasSize = getCanvasSize();
+    canvas.width = canvasSize;
+    canvas.height = canvasSize;
     const ctx = canvas.getContext('2d');
-    const box = 20;
+    const box = Math.floor(canvasSize / 20);
     let snake = [{x: 9*box, y: 10*box}];
     let direction = 'RIGHT';
     let food = {
@@ -94,9 +103,30 @@
         else if (e.key === 'ArrowRight' && direction !== 'LEFT') direction = 'RIGHT';
         else if (e.key === 'ArrowDown' && direction !== 'UP') direction = 'DOWN';
     }
+    // Mobil swipe kontrolleri
+    let touchStartX = 0, touchStartY = 0;
+    canvas.addEventListener('touchstart', function(e) {
+      const t = e.touches[0];
+      touchStartX = t.clientX;
+      touchStartY = t.clientY;
+      e.preventDefault();
+    }, { passive: false });
+    canvas.addEventListener('touchend', function(e) {
+      const t = e.changedTouches[0];
+      const dx = t.clientX - touchStartX;
+      const dy = t.clientY - touchStartY;
+      if(Math.abs(dx) > Math.abs(dy)) {
+        if(dx > 20 && direction !== 'LEFT') direction = 'RIGHT';
+        else if(dx < -20 && direction !== 'RIGHT') direction = 'LEFT';
+      } else {
+        if(dy > 20 && direction !== 'UP') direction = 'DOWN';
+        else if(dy < -20 && direction !== 'DOWN') direction = 'UP';
+      }
+      e.preventDefault();
+    }, { passive: false });
     function draw() {
         ctx.fillStyle = '#222';
-        ctx.fillRect(0, 0, 400, 400);
+        ctx.fillRect(0, 0, canvasSize, canvasSize);
         for (let i = 0; i < snake.length; i++) {
             ctx.fillStyle = i === 0 ? '#ffb347' : '#fff';
             ctx.fillRect(snake[i].x, snake[i].y, box, box);
@@ -126,16 +156,15 @@
         let newHead = {x: snakeX, y: snakeY};
         // Çarpışma kontrolü
         if (
-            snakeX < 0 || snakeX >= 400 ||
-            snakeY < 0 || snakeY >= 400 ||
+            snakeX < 0 || snakeX >= canvasSize ||
+            snakeY < 0 || snakeY >= canvasSize ||
             collision(newHead, snake)
         ) {
             clearInterval(gameInterval);
             ctx.fillStyle = '#fff';
             ctx.font = '32px Quicksand, Arial, sans-serif';
             ctx.textAlign = 'center';
-            ctx.fillText('Oyun Bitti!', 200, 180);
-            // Butonu "Oyun Bitti!" yazısının altına yerleştir
+            ctx.fillText('Oyun Bitti!', canvasSize/2, canvasSize/2 - 20);
             setTimeout(() => {
                 restartBtn.style.display = 'block';
                 restartBtn.style.left = '50%';
@@ -145,7 +174,6 @@
             return;
         }
         snake.unshift(newHead);
-        // Oyun devam ederken buton gizli
         restartBtn.style.display = 'none';
     }
     function collision(head, arr) {
@@ -168,6 +196,12 @@
         gameInterval = setInterval(draw, 120);
     }
     restartBtn.addEventListener('click', startGame);
+    // Ekran boyutu değişirse canvas'ı yeniden ayarla
+    window.addEventListener('resize', function() {
+      canvasSize = getCanvasSize();
+      canvas.width = canvasSize;
+      canvas.height = canvasSize;
+    });
     startGame();
     </script>
 </body>
